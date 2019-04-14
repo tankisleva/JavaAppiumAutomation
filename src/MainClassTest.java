@@ -7,7 +7,7 @@ public class MainClassTest {
 
     @Test
     public void testGetLocalNumber(){
-        Assert.assertTrue(this.getLocalNumber() == 14);
+        Assert.assertTrue("метод getLocalNumber не возвращает 14!",this.getLocalNumber() == 14);
 
     }
 
