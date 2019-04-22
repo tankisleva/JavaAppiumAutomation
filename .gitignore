@@ -3,3 +3,17 @@
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
+.idea/libraries/selenium_server_standalone_3_4_0.xml
+libs/java-client-4.1.2.jar
+out/production/JavaAppiumAutomation/MainClassTest.class
+libs/selenium-server-standalone-3.4.0.jar
+out/production/JavaAppiumAutomation/FirstTest.class
+libs/junit-4.13-beta-2.jar
+JavaAppiumAutomation.iml
+apks/org.wikipedia.apk
+.idea/libraries/junit_4_13_beta_2.xml
+.idea/libraries/java_client_4_1_2.xml
+out/production/JavaAppiumAutomation/MainClassTest.class
+JavaAppiumAutomation.iml
+*.iml
+out/production/JavaAppiumAutomation/MainClassTest.class
