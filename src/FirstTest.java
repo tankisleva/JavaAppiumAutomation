@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class FirstTest {
@@ -84,6 +85,20 @@ public class FirstTest {
         waitForElementAndClear(By.id("org.wikipedia:id/search_src_text"),"Cannot field clear",5);
         waitForElementAndClick(By.id("org.wikipedia:id/search_close_btn"),"Cannot find id search_close_btn",5);
         waitForElementNotPresent(By.id("org.wikipedia:id/search_close_btn"),"x is still present on the page",5);
+
+
+    }
+
+
+
+    @Test
+    public void verifyResultSearch(){
+        waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),"Cannot find search input Search Wikipedia",5);
+        waitForElementAndSendKeys(By.xpath("//*[contains(@text, 'Search…')]"),"Java","Can not find input Search",5);
+        List <WebElement> layouts = driver.findElementsById("org.wikipedia:id/page_list_item_title");
+         for (WebElement layout: layouts){
+             Assert.assertTrue(layout.getAttribute("text").contains("Java"));
+         }
 
 
     }
