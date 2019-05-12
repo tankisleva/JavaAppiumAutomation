@@ -38,6 +38,7 @@ public class FirstTest {
     }
 
 
+
     @After
     public void tearDown() {
         driver.quit();
@@ -45,6 +46,7 @@ public class FirstTest {
 
     @Test
     public void search() {
+        driver.rotate(ScreenOrientation.PORTRAIT);
         waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"), "Cannot find search input Search Wikipedia", 5);
         waitForElementAndSendKeys(By.xpath("//*[contains(@text, 'Search…')]"), "Java", "Can not find input Search", 5);
         waitForElementPresent(By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']"),
@@ -276,7 +278,7 @@ public class FirstTest {
 
 
     @Test
-    public void assertElementPresent() {
+    public void  assertTitle() {
         waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"), "Cannot find search input Search Wikipedia", 5);
         String search_line = "Java";
 
