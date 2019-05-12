@@ -35,6 +35,10 @@ public class FirstTest {
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+
+        if (driver.getOrientation().toString().equals("LANDSCAPE")){
+            driver.rotate(ScreenOrientation.PORTRAIT);
+        }
     }
 
 
@@ -288,8 +292,12 @@ public class FirstTest {
                 5);
         Assert.assertTrue(assertElementsPresent(By.id("org.wikipedia:id/view_page_title_text")));
 
+    }
 
 
+    @Test
+    public void  screenOrientation() {
+        System.out.println(driver.getOrientation().toString());
 
     }
 
