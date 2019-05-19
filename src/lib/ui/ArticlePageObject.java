@@ -51,4 +51,18 @@ public class ArticlePageObject extends MainPageObject {
     public void closeArticle(){
         this.waitForElementAndClick(By.xpath(CLOSE_ARTICLE_BUTTON), "Cannot close article, cannot find X link", 5);
     }
+
+
+    public boolean assertTittlePresent(){
+        return this.assertElementsPresent(By.id(TITLE));
+    }
+
+    public void clickOptionButtonInArticle(){
+        this.waitForElementAndClick(By.xpath(OPTION_BUTTON), "Cannot find 'More options'", 5);
+    }
+
+
+    public void clickButtonAddToListInArticle(){
+        this.waitForElementAndClick(By.xpath(OPTION_ADD_TO_MY_LIST_BUTTON), "Cannot find 'Add to reading list'", 5);
+    }
 }

@@ -6,6 +6,7 @@ import lib.ui.MainPageObject;
 import lib.ui.SearchPageObject;
 import org.junit.Test;
 
+
 public class ArticleTests extends CoreTestCase {
 
     @Test
@@ -45,5 +46,17 @@ public class ArticleTests extends CoreTestCase {
         mainPageObject.swipeUp(2000);
         mainPageObject.swipeUp(2000);
         mainPageObject.swipeUp(2000);
+    }
+
+
+    @Test
+    public void  testAssertTitle() {
+        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        searchPageObject.initSearchInput();
+        searchPageObject.typeSearchLine("JAVA");
+        searchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        ArticlePageObject articlePageObject = new ArticlePageObject(driver);
+        assertTrue(articlePageObject.assertTittlePresent());
+
     }
 }
