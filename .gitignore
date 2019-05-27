@@ -17,3 +17,10 @@ out/production/JavaAppiumAutomation/MainClassTest.class
 JavaAppiumAutomation.iml
 *.iml
 out/production/JavaAppiumAutomation/MainClassTest.class
+apks/
+.idea/
+libs/
+out/
+lib/
+JavaAppiumAutomation.iml
+
