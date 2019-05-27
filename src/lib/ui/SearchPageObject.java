@@ -6,13 +6,14 @@ import org.openqa.selenium.By;
 public class SearchPageObject extends MainPageObject {
 
     private static final String
-            SEARCH_INIT_ELEMENT = "//*[contains(@text, 'Search Wikipedia')]",
-            SEARCH_INPUT = "//*[contains(@text, 'Search…')]",
-            SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
-            SEARCH_RESULT_BY_SUBSTRING_TPL = "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{SUBSTRING}']",
-            SEARCH_RESULT = "//*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']",
-            SEARCH_EMPTY_RESULT_ELEMENT = "//*[@text='No results found']",
-            BUTTON_CLOSE_SEARCH = "org.wikipedia:id/search_close_btn";
+            SEARCH_INIT_ELEMENT = "xpath://*[contains(@text, 'Search Wikipedia')]",
+            SEARCH_INPUT = "xpath://*[contains(@text, 'Search…')]",
+            SEARCH_CANCEL_BUTTON = "id:org.wikipedia:id/search_close_btn",
+            SEARCH_RESULT_BY_SUBSTRING_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{SUBSTRING}']",
+            SEARCH_RESULT = "xpath://*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']",
+            SEARCH_EMPTY_RESULT_ELEMENT = "xpath://*[@text='No results found']",
+            BUTTON_CLOSE_SEARCH = "id:org.wikipedia:id/search_close_btn";
+
 
 
     public SearchPageObject(AppiumDriver driver){
@@ -25,71 +26,71 @@ public class SearchPageObject extends MainPageObject {
     }
     /*template methods*/
 
-    public void initSearchInput(){
-        this.waitForElementAndClick(By.xpath(SEARCH_INIT_ELEMENT),"Cannot find and click search init element",5);
-        this.waitForElementPresent(By.xpath(SEARCH_INPUT),"Cannot find search input after clicking search input element",5);
+    public void initSearchInput() throws Exception{
+        this.waitForElementAndClick(SEARCH_INIT_ELEMENT,"Cannot find and click search init element",5);
+        this.waitForElementPresent(SEARCH_INPUT,"Cannot find search input after clicking search input element",5);
     }
 
 
-    public void typeSearchLine(String search_line){
-        this.waitForElementAndSendKeys(By.xpath(SEARCH_INPUT),search_line,"Cannot find and type into search input", 5);
+    public void typeSearchLine(String search_line) throws Exception{
+        this.waitForElementAndSendKeys(SEARCH_INPUT,search_line,"Cannot find and type into search input", 5);
     }
 
-    public void waitForSearhResult(String substring){
+    public void waitForSearhResult(String substring) throws Exception{
         String SEARCH_RESULT_XPATH = getResultSearhElement(substring);
-        this.waitForElementPresent(By.xpath(SEARCH_RESULT_XPATH),"Cannot find search result with substring " + substring);
+        this.waitForElementPresent(SEARCH_RESULT_XPATH,"Cannot find search result with substring " + substring);
     }
 
 
-    public void clickByArticleWithSubstring(String substring){
+    public void clickByArticleWithSubstring(String substring) throws Exception{
         String SEARCH_RESULT_XPATH = getResultSearhElement(substring);
-        this.waitForElementAndClick(By.xpath(SEARCH_RESULT_XPATH),"Cannot find and search result with substring " + substring,10);
+        this.waitForElementAndClick(SEARCH_RESULT_XPATH,"Cannot find and search result with substring " + substring,10);
     }
 
 
 
-    public void waitForCancelButtonToAppear(){
-        this.waitForElementPresent(By.id(SEARCH_CANCEL_BUTTON),"Cannot find search cancel button",5);
+    public void waitForCancelButtonToAppear() throws Exception{
+        this.waitForElementPresent(SEARCH_CANCEL_BUTTON,"Cannot find search cancel button",5);
     }
 
-    public void waitForCancelButtonToDisAppear(){
-        this.waitForElementNotPresent(By.id(SEARCH_CANCEL_BUTTON),"Cancel search button is still present",5);
+    public void waitForCancelButtonToDisAppear() throws Exception{
+        this.waitForElementNotPresent(SEARCH_CANCEL_BUTTON,"Cancel search button is still present",5);
     }
 
-    public void clickCancelSearh(){
-        this.waitForElementAndClick(By.id(SEARCH_CANCEL_BUTTON),"Cannot find and click cancel searh button",5);
+    public void clickCancelSearh() throws Exception{
+        this.waitForElementAndClick(SEARCH_CANCEL_BUTTON,"Cannot find and click cancel searh button",5);
     }
 
 
-    public int getAmountOfFoundArticles(){
-        this.waitForElementPresent(By.xpath(SEARCH_RESULT),
+    public int getAmountOfFoundArticles() throws Exception{
+        this.waitForElementPresent(SEARCH_RESULT,
                 "Cannot find anything by the request",
                 15);
-        return  this.getAmountOfElements(By.xpath(SEARCH_RESULT));
+        return  this.getAmountOfElements(SEARCH_RESULT);
 
     }
 
 
-    public void waitForEmptyResultsLabel(){
-        this.waitForElementPresent(By.xpath(SEARCH_EMPTY_RESULT_ELEMENT), "Cannot empty result label by request", 15);
+    public void waitForEmptyResultsLabel() throws Exception{
+        this.waitForElementPresent(SEARCH_EMPTY_RESULT_ELEMENT, "Cannot empty result label by request", 15);
     }
 
 
-    public void asserThereIsNotResultOfSearch(){
-        this.assertElementsNotPresent(By.xpath(SEARCH_RESULT), "No supporsed not to find any result");
+    public void asserThereIsNotResultOfSearch() throws Exception{
+        this.assertElementsNotPresent(SEARCH_RESULT, "No supporsed not to find any result");
     }
 
-    public void clearSearchInput(){
-        this.waitForElementAndClear(By.xpath(SEARCH_INPUT ),"Cannot find searh input",10);
+    public void clearSearchInput() throws Exception{
+        this.waitForElementAndClear(SEARCH_INPUT,"Cannot find searh input",10);
     }
 
 
-    public void closeSearch(){
-        this.waitForElementAndClick(By.id(BUTTON_CLOSE_SEARCH), "Cannot find id search_close_btn", 5);
+    public void closeSearch() throws Exception{
+        this.waitForElementAndClick(BUTTON_CLOSE_SEARCH, "Cannot find id search_close_btn", 5);
     }
 
-    public void waitForNotPresentButtonCloseSearch(){
-        this.waitForElementNotPresent(By.id(BUTTON_CLOSE_SEARCH), "x is still present on the page", 5);
+    public void waitForNotPresentButtonCloseSearch() throws Exception{
+        this.waitForElementNotPresent(BUTTON_CLOSE_SEARCH, "x is still present on the page", 5);
     }
 
 

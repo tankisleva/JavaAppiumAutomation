@@ -12,7 +12,7 @@ public class MyListTests extends CoreTestCase {
 
 
     @Test
-    public void testAddAndDeleteArticleToAddList() {
+    public void testAddAndDeleteArticleToAddList() throws Exception{
         SearchPageObject searchPageObject = new SearchPageObject(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("JAVA");
@@ -35,7 +35,7 @@ public class MyListTests extends CoreTestCase {
     /*Добавляем в список две статьи, удаляем одну статью, проверяем что удалилась
      * */
     @Test
-    public void testAddOneAndTwoArticlesAndDeleteOneArticleFromList() {
+    public void testAddOneAndTwoArticlesAndDeleteOneArticleFromList() throws Exception {
 
         // search and add to folder Learning Programming first article object-oriented programming
         SearchPageObject searchPageObject = new SearchPageObject(driver);

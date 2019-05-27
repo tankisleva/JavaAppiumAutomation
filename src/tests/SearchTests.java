@@ -11,7 +11,7 @@ public class SearchTests extends CoreTestCase {
 
 
     @Test
-    public void testSearch() {
+    public void testSearch() throws Exception{
         SearchPageObject searchPageObject = new SearchPageObject(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("JAVA");
@@ -21,7 +21,7 @@ public class SearchTests extends CoreTestCase {
 
 
     @Test
-    public void testCancelSearch() {
+    public void testCancelSearch() throws Exception {
         SearchPageObject searchPageObject = new SearchPageObject(driver);
         searchPageObject.initSearchInput();
         searchPageObject.waitForCancelButtonToAppear();
@@ -30,7 +30,7 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
-    public void testAmountNotEmptySearch() {
+    public void testAmountNotEmptySearch() throws Exception {
         String search_line = "Linkin Park Disckography";
         SearchPageObject searchPageObject = new SearchPageObject(driver);
         searchPageObject.initSearchInput();
@@ -41,7 +41,7 @@ public class SearchTests extends CoreTestCase {
 
 
     @Test
-    public void testAmountOfEmptySearch() {
+    public void testAmountOfEmptySearch() throws Exception{
         String search_line = "kjgdkjgdkjgkdgjdg";
         SearchPageObject searchPageObject = new SearchPageObject(driver);
         searchPageObject.initSearchInput();
@@ -52,7 +52,7 @@ public class SearchTests extends CoreTestCase {
 
 
     @Test
-    public void testSearchTextAndCancelSearch() {
+    public void testSearchTextAndCancelSearch() throws Exception{
         String search_line = "Java";
         String result = "Object-oriented programming language";
         SearchPageObject searchPageObject = new SearchPageObject(driver);
@@ -68,7 +68,7 @@ public class SearchTests extends CoreTestCase {
 
 
     @Test
-    public void testVerifyResultSearch() {
+    public void testVerifyResultSearch() throws Exception{
         String search_line = "Java";
         SearchPageObject searchPageObject = new SearchPageObject(driver);
         searchPageObject.initSearchInput();

@@ -6,14 +6,14 @@ import org.openqa.selenium.WebElement;
 
 public class ArticlePageObject extends MainPageObject {
 
-    private static final String TITLE = "org.wikipedia:id/view_page_title_text",
-                                FOOTER_ELEMENT = "//*[@text='View page in browser']",
-                                OPTION_BUTTON = "//android.widget.ImageView[@content-desc='More options']",
-                                OPTION_ADD_TO_MY_LIST_BUTTON = "//*[@text='Add to reading list']",
-                                ADD_TO_MY_LIST_OVERLAY = "org.wikipedia:id/onboarding_button",
-                                MY_LIST_INPUT = "org.wikipedia:id/text_input",
-                                MY_LIST_OK_BUTTON = "android:id/button1",
-                                CLOSE_ARTICLE_BUTTON = "//*[@content-desc='Navigate up']";
+    private static final String TITLE = "id:org.wikipedia:id/view_page_title_text",
+                                FOOTER_ELEMENT = "xpath://*[@text='View page in browser']",
+                                OPTION_BUTTON = "xpath://android.widget.ImageView[@content-desc='More options']",
+                                OPTION_ADD_TO_MY_LIST_BUTTON = "xpath://*[@text='Add to reading list']",
+                                ADD_TO_MY_LIST_OVERLAY = "id:org.wikipedia:id/onboarding_button",
+                                MY_LIST_INPUT = "id:org.wikipedia:id/text_input",
+                                MY_LIST_OK_BUTTON = "id:android:id/button1",
+                                CLOSE_ARTICLE_BUTTON = "xpath://*[@content-desc='Navigate up']";
 
 
 
@@ -22,47 +22,47 @@ public class ArticlePageObject extends MainPageObject {
     }
 
 
-    public WebElement waitForTittleElement(){
-        return this.waitForElementPresent(By.id(TITLE),"Cannot find tittle element",15);
+    public WebElement waitForTittleElement() throws Exception{
+        return this.waitForElementPresent(TITLE,"Cannot find tittle element",15);
     }
 
-    public String getTittle(){
+    public String getTittle() throws Exception{
         WebElement title_element = waitForTittleElement();
         return title_element.getAttribute("text");
     }
 
 
-    public void swipeToFooter(){
-        this.swipeUpToFindElement(By.xpath(FOOTER_ELEMENT),20,"Cannot find end of article");
+    public void swipeToFooter() throws Exception{
+        this.swipeUpToFindElement(FOOTER_ELEMENT,20,"Cannot find end of article");
     }
 
 
-    public void addArticleToMyList(String nameOfFolder){
-        this.waitForElementAndClick(By.xpath(OPTION_BUTTON), "Cannot find 'More options'", 5);
-        this.waitForElementAndClick(By.xpath(OPTION_ADD_TO_MY_LIST_BUTTON), "Cannot find 'Add to reading list'", 5);
-        this.waitForElementAndClick(By.id(ADD_TO_MY_LIST_OVERLAY), "Connot button Got it", 5);
+    public void addArticleToMyList(String nameOfFolder) throws Exception{
+        this.waitForElementAndClick(OPTION_BUTTON, "Cannot find 'More options'", 5);
+        this.waitForElementAndClick(OPTION_ADD_TO_MY_LIST_BUTTON, "Cannot find 'Add to reading list'", 5);
+        this.waitForElementAndClick(ADD_TO_MY_LIST_OVERLAY, "Connot button Got it", 5);
 //        waitForElementAndClick(By.id("org.wikipedia:id/create_button"),"Cannot find Create_button",5);
-        this.waitForElementAndClear(By.id(MY_LIST_INPUT), "Cannot cleat input field to add to reading list", 5);
-        this.waitForElementAndSendKeys(By.id(MY_LIST_INPUT), nameOfFolder, "Cannot put text to article folder input", 5);
-        this.waitForElementAndClick(By.id(MY_LIST_OK_BUTTON), "Cannot press  button ok", 5);
+        this.waitForElementAndClear(MY_LIST_INPUT, "Cannot cleat input field to add to reading list", 5);
+        this.waitForElementAndSendKeys(MY_LIST_INPUT, nameOfFolder, "Cannot put text to article folder input", 5);
+        this.waitForElementAndClick(MY_LIST_OK_BUTTON, "Cannot press  button ok", 5);
     }
 
 
-    public void closeArticle(){
-        this.waitForElementAndClick(By.xpath(CLOSE_ARTICLE_BUTTON), "Cannot close article, cannot find X link", 5);
+    public void closeArticle() throws Exception{
+        this.waitForElementAndClick(CLOSE_ARTICLE_BUTTON, "Cannot close article, cannot find X link", 5);
     }
 
 
-    public boolean assertTittlePresent(){
-        return this.assertElementsPresent(By.id(TITLE));
+    public boolean assertTittlePresent() throws Exception{
+        return this.assertElementsPresent(TITLE);
     }
 
-    public void clickOptionButtonInArticle(){
-        this.waitForElementAndClick(By.xpath(OPTION_BUTTON), "Cannot find 'More options'", 5);
+    public void clickOptionButtonInArticle() throws Exception{
+        this.waitForElementAndClick(OPTION_BUTTON, "Cannot find 'More options'", 5);
     }
 
 
-    public void clickButtonAddToListInArticle(){
-        this.waitForElementAndClick(By.xpath(OPTION_ADD_TO_MY_LIST_BUTTON), "Cannot find 'Add to reading list'", 5);
+    public void clickButtonAddToListInArticle() throws Exception{
+        this.waitForElementAndClick(OPTION_ADD_TO_MY_LIST_BUTTON, "Cannot find 'Add to reading list'", 5);
     }
 }
