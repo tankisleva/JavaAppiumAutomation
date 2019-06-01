@@ -2,10 +2,11 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 
-public class NavigationUI extends MainPageObject {
+abstract public class NavigationUI extends MainPageObject {
 
-    private static final String
-            MY_LIST_LINK = "xpath://android.widget.FrameLayout[@content-desc='My lists']";
+    protected static  String
+            MY_LIST_LINK,
+            CLOSE_AUTH_ALERT;
 
 
 
@@ -16,6 +17,17 @@ public class NavigationUI extends MainPageObject {
     public void clickMyList() throws Exception{
         this.waitForElementAndClick(MY_LIST_LINK, "Cannot find navigation button to My List", 5);
     }
+
+    public void closeAuthAlert() throws Exception {
+        this.waitForElementAndClick(CLOSE_AUTH_ALERT, "Cannot find elemnt close auth alert", 5);
+    }
+
+
+    public boolean assertAuthClose() throws Exception{
+        return this.assertElementsPresent(CLOSE_AUTH_ALERT);
+    }
+
+
 
 
 

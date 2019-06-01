@@ -1,14 +1,16 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
-public class MyListPageObject extends MainPageObject {
+abstract public class MyListPageObject extends MainPageObject {
 
-    private static final String
-            FOLDER_BY_NAME_TPL = "xpath://android.widget.TextView[@text='{FOLDER_NAME}']",
-            FOLDER_BY_ARTICLE_TPL = "xpath://*[@text='{TITTLE_ARTICLE}']";
+    protected static  String
+            FOLDER_BY_NAME_TPL,
+            FOLDER_BY_ARTICLE_TPL,
+            TITTLE_ON_LIST_1;
 
 
     private static String getFolderXpathByName(String name_of_folder){
@@ -32,9 +34,15 @@ public class MyListPageObject extends MainPageObject {
     }
 
     public void swipeArticleToDelete(String articleTittle) throws Exception{
-        this.wairForArticleToAppearByTitle(articleTittle);
+        if (Platform.getInstance().isAndroid()) {
+        this.wairForArticleToAppearByTitle(articleTittle);}
+
         String tittle_article_name_xpath = getTittleArticleXpathByName(articleTittle);
-        this.swipeElementToLeft(tittle_article_name_xpath, "Cannot article in list item");
+
+        this.swipeElementToLeft(tittle_article_name_xpath,"Cannot article in list item");
+        if (Platform.getInstance().isIos()) {
+            this.clickElemntToTheRightUpperCorner(tittle_article_name_xpath, "Cannot find " +tittle_article_name_xpath +" for delete");
+        }
         this.wairForArticleToDisappearByTitle(articleTittle);
     }
 
@@ -48,5 +56,7 @@ public class MyListPageObject extends MainPageObject {
         String tittle_article_name_xpath = getTittleArticleXpathByName(articleTittle);
         this.waitForElementPresent(tittle_article_name_xpath, "Saved article still present with tittle " +articleTittle, 15);
     }
+
+
 
 }

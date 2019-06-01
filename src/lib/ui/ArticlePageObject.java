@@ -1,19 +1,20 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class ArticlePageObject extends MainPageObject {
+public abstract class ArticlePageObject extends MainPageObject {
 
-    private static final String TITLE = "id:org.wikipedia:id/view_page_title_text",
-                                FOOTER_ELEMENT = "xpath://*[@text='View page in browser']",
-                                OPTION_BUTTON = "xpath://android.widget.ImageView[@content-desc='More options']",
-                                OPTION_ADD_TO_MY_LIST_BUTTON = "xpath://*[@text='Add to reading list']",
-                                ADD_TO_MY_LIST_OVERLAY = "id:org.wikipedia:id/onboarding_button",
-                                MY_LIST_INPUT = "id:org.wikipedia:id/text_input",
-                                MY_LIST_OK_BUTTON = "id:android:id/button1",
-                                CLOSE_ARTICLE_BUTTON = "xpath://*[@content-desc='Navigate up']";
+    protected static String TITLE,
+                            FOOTER_ELEMENT,
+                            OPTION_BUTTON,
+                            OPTION_ADD_TO_MY_LIST_BUTTON,
+                            ADD_TO_MY_LIST_OVERLAY,
+                            MY_LIST_INPUT,
+                            MY_LIST_OK_BUTTON,
+                            CLOSE_ARTICLE_BUTTON;
 
 
 
@@ -28,12 +29,22 @@ public class ArticlePageObject extends MainPageObject {
 
     public String getTittle() throws Exception{
         WebElement title_element = waitForTittleElement();
-        return title_element.getAttribute("text");
+
+        if (Platform.getInstance().isAndroid()) {
+            return title_element.getAttribute("text");
+        } else {
+            return title_element.getAttribute("name");
+        }
     }
 
 
     public void swipeToFooter() throws Exception{
-        this.swipeUpToFindElement(FOOTER_ELEMENT,20,"Cannot find end of article");
+        if (Platform.getInstance().isAndroid()) {
+            this.swipeUpToFindElement(FOOTER_ELEMENT, 40, "Cannot find end of article");
+        }
+        else {
+            this.swipeUpTittleElementAppear(FOOTER_ELEMENT,"Cannot fine the end of article",40);
+        }
     }
 
 
@@ -64,5 +75,9 @@ public class ArticlePageObject extends MainPageObject {
 
     public void clickButtonAddToListInArticle() throws Exception{
         this.waitForElementAndClick(OPTION_ADD_TO_MY_LIST_BUTTON, "Cannot find 'Add to reading list'", 5);
+    }
+
+    public void addAtricleToMySaved() throws Exception{
+        this.waitForElementAndClick(OPTION_ADD_TO_MY_LIST_BUTTON,"Cannot fiend option to add article to reading list",5);
     }
 }
