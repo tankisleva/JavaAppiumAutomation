@@ -10,7 +10,8 @@ abstract public class MyListPageObject extends MainPageObject {
     protected static  String
             FOLDER_BY_NAME_TPL,
             FOLDER_BY_ARTICLE_TPL,
-            TITTLE_ON_LIST_1;
+            TITTLE_ON_LIST_1,
+            XPATH_IN_LIST;
 
 
     private static String getFolderXpathByName(String name_of_folder){
@@ -39,7 +40,7 @@ abstract public class MyListPageObject extends MainPageObject {
 
         String tittle_article_name_xpath = getTittleArticleXpathByName(articleTittle);
 
-        this.swipeElementToLeft(tittle_article_name_xpath,"Cannot article in list item");
+         this.swipeElementToLeft(tittle_article_name_xpath,"Cannot article in list item");
         if (Platform.getInstance().isIos()) {
             this.clickElemntToTheRightUpperCorner(tittle_article_name_xpath, "Cannot find " +tittle_article_name_xpath +" for delete");
         }
@@ -55,6 +56,15 @@ abstract public class MyListPageObject extends MainPageObject {
     public void wairForArticleToAppearByTitle(String articleTittle) throws Exception{
         String tittle_article_name_xpath = getTittleArticleXpathByName(articleTittle);
         this.waitForElementPresent(tittle_article_name_xpath, "Saved article still present with tittle " +articleTittle, 15);
+    }
+
+
+    public boolean getContainsTextArticleInListIos(String text) throws Exception{
+
+        if (this.waitForElementAndGetAttribute(XPATH_IN_LIST,"name", "Cannot find "+XPATH_IN_LIST+" with attrubute name",
+                15).contains(text)){
+            return true;
+        } else return false;
     }
 
 

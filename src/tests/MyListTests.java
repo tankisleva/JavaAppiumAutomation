@@ -10,6 +10,7 @@ import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListPageObjectFactory;
 import lib.ui.factories.NavigationUiFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MyListTests extends CoreTestCase {
@@ -49,8 +50,8 @@ public class MyListTests extends CoreTestCase {
             myListPageObject.openFolderByName(name_of_folder);
         }
 
-        myListPageObject.swipeArticleToDelete(articleTittle);
-        myListPageObject.wairForArticleToDisappearByTitle(articleTittle);
+        myListPageObject.swipeArticleToDelete("Java (programming language) Object-oriented programming language");
+        myListPageObject.wairForArticleToDisappearByTitle("Java (programming language) Object-oriented programming language");
     }
 
 
@@ -110,9 +111,19 @@ public class MyListTests extends CoreTestCase {
             myListPageObject.openFolderByName(name_of_folder);
         }
 
-        myListPageObject.swipeArticleToDelete(articleTittle1);
+        if (Platform.getInstance().isAndroid()){
+        myListPageObject.swipeArticleToDelete(articleTittle1);}
+
+        else {
+            myListPageObject.swipeArticleToDelete("Java (programming language) Object-oriented programming language");
+        }
+
+        if (Platform.getInstance().isAndroid()){
         myListPageObject.wairForArticleToDisappearByTitle(articleTittle1);
-        myListPageObject.wairForArticleToAppearByTitle(articleTittle2);
+        myListPageObject.wairForArticleToAppearByTitle(articleTittle2);}
+        else {
+            Assert.assertTrue(myListPageObject.getContainsTextArticleInListIos("Wikimedia list article"));
+        }
     }
 
 
