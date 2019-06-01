@@ -24,3 +24,4 @@ out/
 JavaAppiumAutomation.iml
 
 out/production/JavaAppiumAutomation/lib/ui/ArticlePageObject.class
+*.class
