@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class MyListPageObject extends MainPageObject {
 
@@ -11,7 +12,8 @@ abstract public class MyListPageObject extends MainPageObject {
             FOLDER_BY_NAME_TPL,
             FOLDER_BY_ARTICLE_TPL,
             TITTLE_ON_LIST_1,
-            XPATH_IN_LIST;
+            XPATH_IN_LIST,
+            REMOVE_FROM_SAVED_BUTTON;
 
 
     private static String getFolderXpathByName(String name_of_folder){
@@ -23,9 +25,13 @@ abstract public class MyListPageObject extends MainPageObject {
         return FOLDER_BY_ARTICLE_TPL.replace("{TITTLE_ARTICLE}",tittle_article);
     }
 
+    private static String getRemoveButtonByTittle(String tittle_article){
+        return REMOVE_FROM_SAVED_BUTTON.replace("{TITTLE_ARTICLE}",tittle_article);
+    }
 
 
-    public MyListPageObject(AppiumDriver driver){
+
+    public MyListPageObject(RemoteWebDriver driver){
         super(driver);
     }
 
@@ -40,9 +46,20 @@ abstract public class MyListPageObject extends MainPageObject {
 
         String tittle_article_name_xpath = getTittleArticleXpathByName(articleTittle);
 
-         this.swipeElementToLeft(tittle_article_name_xpath,"Cannot article in list item");
+        if ((Platform.getInstance().isIos() || Platform.getInstance().isAndroid())) {
+
+         this.swipeElementToLeft(tittle_article_name_xpath,"Cannot article in list item");}
+
+         else {
+             String remove_locator = getRemoveButtonByTittle(articleTittle);
+             this.waitForElementAndClick(remove_locator,"Cannot click button to remove article from saved",10);
+        }
         if (Platform.getInstance().isIos()) {
             this.clickElemntToTheRightUpperCorner(tittle_article_name_xpath, "Cannot find " +tittle_article_name_xpath +" for delete");
+        }
+
+        if (Platform.getInstance().isMV()){
+            driver.navigate().refresh();
         }
         this.wairForArticleToDisappearByTitle(articleTittle);
     }

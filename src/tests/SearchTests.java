@@ -16,7 +16,7 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("JAVA");
-        searchPageObject.waitForSearhResult("Object-oriented programming language");
+        searchPageObject.waitForSearhResult("bject-oriented programming language");
 
     }
 
@@ -32,7 +32,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testAmountNotEmptySearch() throws Exception {
-        String search_line = "Linkin Park Disckography";
+        String search_line = "inkin Park Disckography";
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine(search_line);
@@ -55,7 +55,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testSearchTextAndCancelSearch() throws Exception{
         String search_line = "Java";
-        String result = "Object-oriented programming language";
+        String result = "bject-oriented programming language";
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine(search_line);

@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 import lib.ui.WelcomePageObject;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
 import java.time.Duration;
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class CoreTestCase extends TestCase  {
 
 
-    protected AppiumDriver driver;
+    protected RemoteWebDriver driver;
 
 
     @Override
@@ -24,6 +25,7 @@ public class CoreTestCase extends TestCase  {
         driver = Platform.getInstance().getDriver();
         this.rotateScreenPortrait();
         this.skipWelcomePageForIOSApp();
+        this.openWikiWebPagwForMobileWeb();
     }
 
 
@@ -35,23 +37,58 @@ public class CoreTestCase extends TestCase  {
 
 
     protected void rotateScreenPortrait(){
-        driver.rotate(ScreenOrientation.PORTRAIT);
+
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver = (AppiumDriver) this.driver;
+            driver.rotate(ScreenOrientation.PORTRAIT);
+        } else {
+            System.out.println("Method rotateScreenPortrait() does nothing for platform " + Platform.getInstance().getPLatformVar());
+        }
+
+
+
     }
 
     protected void rotateScreenLandscape(){
-        driver.rotate(ScreenOrientation.LANDSCAPE);
+
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver = (AppiumDriver) this.driver;
+            driver.rotate(ScreenOrientation.LANDSCAPE);
+        } else {
+            System.out.println("Method rotateScreenPortrait() does nothing for platform " + Platform.getInstance().getPLatformVar());
+        }
+
+
     }
 
 
     protected void backgroundApp(int sec){
+
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver = (AppiumDriver) this.driver;
+            driver.runAppInBackground(Duration.ofSeconds(sec));
+        } else {
+            System.out.println("Method rotateScreenPortrait() does nothing for platform " + Platform.getInstance().getPLatformVar());
+        }
         //driver.runAppInBackground(sec);
-        driver.runAppInBackground(Duration.ofSeconds(sec));
+
     }
+
 
     private void skipWelcomePageForIOSApp() throws Exception{
         if (Platform.getInstance().isIos()){
             WelcomePageObject welcomePageObject = new WelcomePageObject(driver);
             welcomePageObject.clickSkip();
+        }
+    }
+
+
+    protected void openWikiWebPagwForMobileWeb(){
+        if (Platform.getInstance().isMV()){
+            driver.get("https://en.m.wikipedia.org/");
+        } else
+        {
+            System.out.println("Method rotateScreenPortrait() does nothing for platform " + Platform.getInstance().getPLatformVar());
         }
     }
 

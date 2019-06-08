@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class WelcomePageObject extends MainPageObject {
 
@@ -17,7 +18,7 @@ public class WelcomePageObject extends MainPageObject {
             SKIP = "id:Skip";
 
 
-    public WelcomePageObject(AppiumDriver driver){
+    public WelcomePageObject(RemoteWebDriver driver){
         super(driver);
     }
 

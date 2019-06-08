@@ -2,10 +2,7 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.Platform;
-import lib.ui.ArticlePageObject;
-import lib.ui.MyListPageObject;
-import lib.ui.NavigationUI;
-import lib.ui.SearchPageObject;
+import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListPageObjectFactory;
 import lib.ui.factories.NavigationUiFactory;
@@ -15,6 +12,9 @@ import org.junit.Test;
 
 public class MyListTests extends CoreTestCase {
     private static final String name_of_folder = "Learning programming";
+    private static final String
+    login = "Tanki sleva",
+    password = "V1234567";
 
 
     @Test
@@ -24,7 +24,7 @@ public class MyListTests extends CoreTestCase {
         NavigationUI navigationUI = NavigationUiFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("JAVA");
-        searchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        searchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
         ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);
         articlePageObject.waitForTittleElement();
 
@@ -41,9 +41,22 @@ public class MyListTests extends CoreTestCase {
             }
         }
 
+        if (Platform.getInstance().isMV()){
+            AuthorizacionPageObject auth = new AuthorizacionPageObject(driver);
+            auth.clickAuthButton();
+            auth.enterLoginData(login, password);
+            auth.submitForm();
+            articlePageObject.waitForTittleElement();
+            assertEquals("We are not same page after login",articleTittle,articlePageObject.getTittle());
+
+        }
+
         articlePageObject.closeArticle();
 
+        navigationUI.openNavigation();
         navigationUI.clickMyList();
+
+        articlePageObject.addAtricleToMySaved();
 
 
         if (Platform.getInstance().isAndroid()) {
@@ -66,7 +79,7 @@ public class MyListTests extends CoreTestCase {
         NavigationUI navigationUI = NavigationUiFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("JAVA");
-        searchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        searchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
         ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);
         articlePageObject.waitForTittleElement();
         String articleTittle1 = articlePageObject.getTittle();
@@ -80,6 +93,16 @@ public class MyListTests extends CoreTestCase {
             }
         }
 
+        if (Platform.getInstance().isMV()){
+            AuthorizacionPageObject auth = new AuthorizacionPageObject(driver);
+            auth.clickAuthButton();
+            auth.enterLoginData(login, password);
+            auth.submitForm();
+            articlePageObject.waitForTittleElement();
+            assertEquals("We are not same page after login",articleTittle1,articlePageObject.getTittle());
+
+        }
+
         if (Platform.getInstance().isAndroid()) {
             myListPageObject.openFolderByName(name_of_folder);
         }
@@ -88,9 +111,19 @@ public class MyListTests extends CoreTestCase {
         // search and add to folder Learning Programming second article Wikimedia list article
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("JAVA");
-        searchPageObject.clickByArticleWithSubstring("Wikimedia list article");
+        searchPageObject.clickByArticleWithSubstring("ikimedia list article");
         articlePageObject.waitForTittleElement();
         String articleTittle2 = articlePageObject.getTittle();
+
+        if (Platform.getInstance().isMV()){
+            AuthorizacionPageObject auth = new AuthorizacionPageObject(driver);
+            auth.clickAuthButton();
+            auth.enterLoginData(login, password);
+            auth.submitForm();
+            articlePageObject.waitForTittleElement();
+            assertEquals("We are not same page after login",articleTittle2,articlePageObject.getTittle());
+
+        }
 
         if(Platform.getInstance().isAndroid()){
             articlePageObject.clickOptionButtonInArticle();
@@ -104,6 +137,7 @@ public class MyListTests extends CoreTestCase {
         }
 
         articlePageObject.closeArticle();
+        navigationUI.openNavigation();
         navigationUI.clickMyList();
 
 
