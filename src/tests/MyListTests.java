@@ -129,11 +129,13 @@ public class MyListTests extends CoreTestCase {
             articlePageObject.clickOptionButtonInArticle();
             articlePageObject.clickButtonAddToListInArticle();
             myListPageObject.openFolderByName(name_of_folder);
-        } else {
-            articlePageObject.addAtricleToMySaved();
-            if (navigationUI.assertAuthClose()){
-                navigationUI.closeAuthAlert();
-            }
+        }
+
+        if (Platform.getInstance().isIos()){
+                articlePageObject.addAtricleToMySaved();
+                if (navigationUI.assertAuthClose()){
+                    navigationUI.closeAuthAlert();
+                }
         }
 
         articlePageObject.closeArticle();
